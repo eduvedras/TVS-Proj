@@ -1,14 +1,7 @@
 package ap;
  
 import org.testng.annotations.Test;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import static org.testng.Assert.*;
-
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Test
 public class TestTerminalNetwork{
@@ -23,8 +16,10 @@ public class TestTerminalNetwork{
     private static final int MAXCLIENTS_ON = 5000;
     private static final int MAXCLIENTS_OFF = 5001;
 
+    private static final int CLIENTS_SIZE_OFF = 3001;
+
     @Test(testName = "TC1 -- name.length() == " + NAME_ON_LENGTH + " -- ctor")
-    public void Test1(){
+    public void testValidNameWith3CharForTerminal() {
         TerminalNetwork t = new TerminalNetwork(NAME_ON, 50);
 
         int i = 1;
@@ -40,14 +35,14 @@ public class TestTerminalNetwork{
         
         boolean repeated = false;
         int clients_with_same_name = 0;
-        for (Client client1 : t.getClients()){
+        for (Client client1 : t.getClients()) {
             clients_with_same_name = 0;
-            for (Client client2 : t.getClients()){
-                if (client1.getName().equals(client2.getName())){
+            for (Client client2 : t.getClients()) {
+                if (client1.getName().equals(client2.getName())) {
                     clients_with_same_name++;
                 }
             }
-            if (clients_with_same_name > 1){
+            if (clients_with_same_name > 1) {
                 repeated = true;
                 break;
             }
@@ -57,13 +52,13 @@ public class TestTerminalNetwork{
 
     @Test(testName = "TC2 -- name.length() == " + NAME_OFF_1_LENGTH + " -- setMaxClients",
             expectedExceptions = IllegalArgumentException.class)
-    public void Test2(){
+    public void testInvalidNameWith2charForTerminal() {
         TerminalNetwork t = new TerminalNetwork(NAME_OFF_1, 239);
 
         t.setMaxClients(240);
         
         int i = 1;
-        while(i <= 180){
+        while(i <= 180) {
             Client c = new Client("ccc"+i, "Normal");
             t.addClient(c);
             i++;
@@ -75,14 +70,14 @@ public class TestTerminalNetwork{
         
         boolean repeated = false;
         int clients_with_same_name = 0;
-        for (Client client1 : t.getClients()){
+        for (Client client1 : t.getClients()) {
             clients_with_same_name = 0;
-            for (Client client2 : t.getClients()){
-                if (client1.getName().equals(client2.getName())){
+            for (Client client2 : t.getClients()) {
+                if (client1.getName().equals(client2.getName())) {
                     clients_with_same_name++;
                 }
             }
-            if (clients_with_same_name > 1){
+            if (clients_with_same_name > 1) {
                 repeated = true;
                 break;
             }
@@ -91,13 +86,13 @@ public class TestTerminalNetwork{
     }
 
     @Test(testName = "TC4 -- name.length() == " + NAME_OFF_2_LENGTH + " -- setname")
-    public void Test4(){
-        TerminalNetwork t = new TerminalNetwork("23456981",2100);
-        //t.setMaxClients(2100);
+    public void testValidNameWith9CharForTerminal() {
+        TerminalNetwork t = new TerminalNetwork("23456981", 2100);
+        
         t.setName(NAME_OFF_2);
 
         int i = 1;
-        while(i <= 1000){
+        while(i <= 1000) {
             Client c = new Client("abc"+i, "Normal");
             t.addClient(c);
             i++;
@@ -105,14 +100,14 @@ public class TestTerminalNetwork{
 
         boolean repeated = false;
         int clients_with_same_name = 0;
-        for (Client client1 : t.getClients()){
+        for (Client client1 : t.getClients()) {
             clients_with_same_name = 0;
-            for (Client client2 : t.getClients()){
-                if (client1.getName().equals(client2.getName())){
+            for (Client client2 : t.getClients()) {
+                if (client1.getName().equals(client2.getName())) {
                     clients_with_same_name++;
                 }
             }
-            if (clients_with_same_name > 1){
+            if (clients_with_same_name > 1) {
                 repeated = true;
                 break;
             }
@@ -125,11 +120,11 @@ public class TestTerminalNetwork{
     }
     
     @Test(testName = "TC5 -- maxClients == " + MAXCLIENTS_ON + " -- ctor")
-    public void Test5(){
+    public void testValidMaxClients() {
         TerminalNetwork t = new TerminalNetwork("abcd", MAXCLIENTS_ON);
 
         int i = 1;
-        while(i <= 3000){
+        while(i <= 3000) {
             Client c = new Client("abc"+i, "Normal");
             t.addClient(c);
             i++;
@@ -141,14 +136,14 @@ public class TestTerminalNetwork{
 
         boolean repeated = false;
         int clients_with_same_name = 0;
-        for (Client client1 : t.getClients()){
+        for (Client client1 : t.getClients()) {
             clients_with_same_name = 0;
             for (Client client2 : t.getClients()){
-                if (client1.getName().equals(client2.getName())){
+                if (client1.getName().equals(client2.getName())) {
                     clients_with_same_name++;
                 }
             }
-            if (clients_with_same_name > 1){
+            if (clients_with_same_name > 1) {
                 repeated = true;
                 break;
             }
@@ -161,11 +156,11 @@ public class TestTerminalNetwork{
     }
     
     @Test(testName = "TC6 -- maxClients == " + MAXCLIENTS_OFF + " -- setMaxClients")
-    public void Test6(){
+    public void testInvalidMaxClients() {
         TerminalNetwork t = new TerminalNetwork("abcde", 4999);
 
         int i = 1;
-        while(i <= 3500){
+        while(i <= 3500) {
             Client c = new Client("abc"+i, "Normal");
             t.addClient(c);
             i++;
@@ -177,14 +172,14 @@ public class TestTerminalNetwork{
         
         boolean repeated = false;
         int clients_with_same_name = 0;
-        for (Client client1 : t.getClients()){
+        for (Client client1 : t.getClients()) {
             clients_with_same_name = 0;
-            for (Client client2 : t.getClients()){
-                if (client1.getName().equals(client2.getName())){
+            for (Client client2 : t.getClients()) {
+                if (client1.getName().equals(client2.getName())) {
                     clients_with_same_name++;
                 }
             }
-            if (clients_with_same_name > 1){
+            if (clients_with_same_name > 1) {
                 repeated = true;
                 break;
             }
@@ -198,12 +193,12 @@ public class TestTerminalNetwork{
         assertEquals(t.getClients().size(), 3500);
     }
 
-    @Test(testName = "TC8 -- clients.size() == 3001 -- ")
-    public void Test8(){
-        TerminalNetwork t = new TerminalNetwork("1234567",3000);
+    @Test(testName = "TC8 -- clients.size() == " + CLIENTS_SIZE_OFF + " -- addClient")
+    public void testInvalidClientsSize() {
+        TerminalNetwork t = new TerminalNetwork("1234567", 3000);
         
         int i = 1;
-        while(i <= 3000){
+        while(i <= 3000) {
             Client c = new Client("123"+i, "Gold");
             t.addClient(c);
             i++;
@@ -215,14 +210,14 @@ public class TestTerminalNetwork{
         
         boolean repeated = false;
         int clients_with_same_name = 0;
-        for (Client client1 : t.getClients()){
+        for (Client client1 : t.getClients()) {
             clients_with_same_name = 0;
-            for (Client client2 : t.getClients()){
-                if (client1.getName().equals(client2.getName())){
+            for (Client client2 : t.getClients()) {
+                if (client1.getName().equals(client2.getName())) {
                     clients_with_same_name++;
                 }
             }
-            if (clients_with_same_name > 1){
+            if (clients_with_same_name > 1) {
                 repeated = true;
                 break;
             }
@@ -230,35 +225,34 @@ public class TestTerminalNetwork{
         assertEquals(repeated, false);
 
         assertEquals(t.getName(),"1234567");
-        assertEquals(t.getMaxClients(),3000);
-        assertEquals(t.getClients().size(),3000);
+        assertEquals(t.getMaxClients(), 3000);
+        assertEquals(t.getClients().size(), 3000);
     }
     
     @Test(testName = "TC9 -- c.getName() == True -- ")
-    public void Test9(){
-        TerminalNetwork t = new TerminalNetwork("12345678",4000);
+    public void testClientsNamesAreUniqueInTerminalNetwork() {
+        TerminalNetwork t = new TerminalNetwork("12345678", 4000);
 
         int i = 1;
-        while(i <= 3099){
+        while(i <= 3099) {
             Client c = new Client("abc"+i, "Normal");
             t.addClient(c);
             i++;
         }
 
         assertEquals(t.getName(),"12345678");
-       
         assertEquals(t.getMaxClients(), 4000);
         
         boolean repeated = false;
         int clients_with_same_name = 0;
-        for (Client client1 : t.getClients()){
+        for (Client client1 : t.getClients()) {
             clients_with_same_name = 0;
             for (Client client2 : t.getClients()){
-                if (client1.getName().equals(client2.getName())){
+                if (client1.getName().equals(client2.getName())) {
                     clients_with_same_name++;
                 }
             }
-            if (clients_with_same_name > 1){
+            if (clients_with_same_name > 1) {
                 repeated = true;
                 break;
             }
@@ -269,7 +263,7 @@ public class TestTerminalNetwork{
     }
     
     @Test(testName = "TC10 -- c.getName() == False -- ")
-    public void Test10(){
+    public void testClientsNamesAreNotUniqueInTerminalNetwork() {
         TerminalNetwork t = new TerminalNetwork("123456789", 4300);
 
         int i = 1;
@@ -287,14 +281,14 @@ public class TestTerminalNetwork{
 
         boolean repeated = false;
         int clients_with_same_name = 0;
-        for (Client client1 : t.getClients()){
+        for (Client client1 : t.getClients()) {
             clients_with_same_name = 0;
-            for (Client client2 : t.getClients()){
-                if (client1.getName().equals(client2.getName())){
+            for (Client client2 : t.getClients()) {
+                if (client1.getName().equals(client2.getName())) {
                     clients_with_same_name++;
                 }
             }
-            if (clients_with_same_name > 1){
+            if (clients_with_same_name > 1) {
                 repeated = true;
                 break;
             }
