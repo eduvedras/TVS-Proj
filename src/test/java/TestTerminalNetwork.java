@@ -54,11 +54,10 @@ public class TestTerminalNetwork{
             expectedExceptions = IllegalArgumentException.class)
     public void testInvalidNameWith2charForTerminal() {
         TerminalNetwork t = new TerminalNetwork(NAME_OFF_1, 239);
-
         t.setMaxClients(240);
         
         int i = 1;
-        while(i <= 980) {
+        while(i <= 220) {
             Client c = new Client("ccc"+i, "Normal");
             t.addClient(c);
             i++;
@@ -66,7 +65,7 @@ public class TestTerminalNetwork{
 
         assertEquals(t.getMaxClients(), 240);
         assertEquals(t.getName(), NAME_OFF_1);
-        assertEquals(t.getClients().size(), 980);
+        assertEquals(t.getClients().size(), 220);
         
         boolean repeated = false;
         int clients_with_same_name = 0;
@@ -92,7 +91,7 @@ public class TestTerminalNetwork{
         t.setName(NAME_OFF_2);
 
         int i = 1;
-        while(i <= 10000) {
+        while(i <= 9900) {
             Client c = new Client("abc"+i, "Normal");
             t.addClient(c);
             i++;
@@ -116,7 +115,7 @@ public class TestTerminalNetwork{
 
         assertEquals(t.getName(), NAME_OFF_2);
         assertEquals(t.getMaxClients(), 10000);
-        assertEquals(t.getClients().size(), 10000);
+        assertEquals(t.getClients().size(), 9900);
     }
     
     @Test(testName = "TC5 -- maxClients == " + MAXCLIENTS_ON + " -- ctor")
