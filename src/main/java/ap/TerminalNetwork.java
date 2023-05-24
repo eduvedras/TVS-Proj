@@ -13,8 +13,8 @@ public class TerminalNetwork {
         if (name.length() < 3 || name.length() >= 10) {
             throw new IllegalArgumentException("Name must be between 3 and 20 characters long");
         }
-        if (maxClients > 5000) {
-            throw new IllegalArgumentException("Clients must be less than 5001");
+        if (maxClients > 50000) {
+            throw new IllegalArgumentException("Clients must be less than 50001");
         }
         this.name = name;
         this.maxClients = maxClients;
@@ -23,8 +23,8 @@ public class TerminalNetwork {
     }
 
     public void setMaxClients(int maxClients) {
-        if (maxClients > 5000) {
-            throw new IllegalArgumentException("Clients must be less than 5001");
+        if (maxClients > 50000) {
+            throw new IllegalArgumentException("Clients must be less than 50001");
         }
         this.maxClients = maxClients;
     }
